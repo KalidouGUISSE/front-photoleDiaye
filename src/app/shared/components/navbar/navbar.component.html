@@ -1,0 +1,130 @@
+<nav class="bg-white shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a routerLink="/" class="flex items-center space-x-2">
+          <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+          <span class="text-xl font-bold text-gray-900">E-Shop</span>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-4">
+        @if (authService.isAuthenticated()) {
+          <a routerLink="/" routerLinkActive="text-primary" [routerLinkActiveOptions]="{exact: true}" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            Accueil
+          </a>
+          
+          @if (!authService.isModerator()) {
+            <a routerLink="/annonce/create" routerLinkActive="text-primary" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              Créer une annonce
+            </a>
+            <a routerLink="/profile/annonces" routerLinkActive="text-primary" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              Mes annonces
+            </a>
+          }
+          
+          @if (authService.isModerator()) {
+            <a routerLink="/moderation" routerLinkActive="text-primary" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              Modération
+            </a>
+          }
+          
+          <a routerLink="/notifications" routerLinkActive="text-primary" class="relative text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+            </svg>
+            @if (notificationService.unreadCount() > 0) {
+              <span class="absolute top-1 right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">
+                {{ notificationService.unreadCount() }}
+              </span>
+            }
+          </a>
+          
+          <a routerLink="/profile" routerLinkActive="text-primary" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            Profil
+          </a>
+          
+          <button (click)="logout()" class="btn-secondary">
+            Déconnexion
+          </button>
+        } @else {
+          <a routerLink="/login" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            Connexion
+          </a>
+          <a routerLink="/register" class="btn-primary">
+            Inscription
+          </a>
+        }
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden flex items-center">
+        <button (click)="toggleMobileMenu()" class="text-gray-700 hover:text-primary focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            @if (!mobileMenuOpen()) {
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            } @else {
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            }
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation -->
+  @if (mobileMenuOpen()) {
+    <div class="md:hidden border-t border-gray-200">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        @if (authService.isAuthenticated()) {
+          <a routerLink="/" (click)="toggleMobileMenu()" routerLinkActive="bg-primary-50 text-primary" [routerLinkActiveOptions]="{exact: true}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+            Accueil
+          </a>
+          
+          @if (!authService.isModerator()) {
+            <a routerLink="/annonce/create" (click)="toggleMobileMenu()" routerLinkActive="bg-primary-50 text-primary" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+              Créer une annonce
+            </a>
+            <a routerLink="/profile/annonces" (click)="toggleMobileMenu()" routerLinkActive="bg-primary-50 text-primary" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+              Mes annonces
+            </a>
+          }
+          
+          @if (authService.isModerator()) {
+            <a routerLink="/moderation" (click)="toggleMobileMenu()" routerLinkActive="bg-primary-50 text-primary" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+              Modération
+            </a>
+          }
+          
+          <a routerLink="/notifications" (click)="toggleMobileMenu()" routerLinkActive="bg-primary-50 text-primary" class="flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+            <span>Notifications</span>
+            @if (notificationService.unreadCount() > 0) {
+              <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-500 rounded-full">
+                {{ notificationService.unreadCount() }}
+              </span>
+            }
+          </a>
+          
+          <a routerLink="/profile" (click)="toggleMobileMenu()" routerLinkActive="bg-primary-50 text-primary" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+            Profil
+          </a>
+          
+          <button (click)="logout(); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+            Déconnexion
+          </button>
+        } @else {
+          <a routerLink="/login" (click)="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+            Connexion
+          </a>
+          <a routerLink="/register" (click)="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+            Inscription
+          </a>
+        }
+      </div>
+    </div>
+  }
+</nav>

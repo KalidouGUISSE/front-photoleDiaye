@@ -1,0 +1,118 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8 ">
+    <div>
+      <div class="flex justify-center">
+        <svg class="w-16 h-16 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+      </div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Connexion à votre compte
+      </h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        Ou
+        <a routerLink="/register" class="font-medium text-primary hover:text-primary-700">
+          créez un nouveau compte
+        </a>
+      </p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-8 space-y-6 bg-blue-50 border border-blue-200 rounded-2xl p-4">
+      @if (error()) {
+        <div class="rounded-md bg-red-50 p-4">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm font-medium text-red-800">{{ error() }}</p>
+            </div>
+          </div>
+        </div>
+      }
+
+      <div class="space-y-4">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">
+            Adresse email
+          </label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="input-field mt-1"
+            [class.border-red-500]="email?.invalid && email?.touched"
+            placeholder="exemple@email.com"
+          />
+          @if (email?.invalid && email?.touched) {
+            <p class="mt-1 text-sm text-red-600">
+              @if (email?.errors?.['required']) {
+                L'email est requis
+              }
+              @if (email?.errors?.['email']) {
+                Email invalide
+              }
+            </p>
+          }
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700">
+            Mot de passe
+          </label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            class="input-field mt-1"
+            [class.border-red-500]="password?.invalid && password?.touched"
+            placeholder="••••••••"
+          />
+          @if (password?.invalid && password?.touched) {
+            <p class="mt-1 text-sm text-red-600">
+              @if (password?.errors?.['required']) {
+                Le mot de passe est requis
+              }
+              @if (password?.errors?.['minlength']) {
+                Le mot de passe doit contenir au moins 6 caractères
+              }
+            </p>
+          }
+        </div>
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          [disabled]="loading()"
+          class="w-full btn-primary flex justify-center items-center"
+          [class.opacity-50]="loading()"
+          [class.cursor-not-allowed]="loading()"
+        >
+          @if (loading()) {
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Connexion en cours...
+          } @else {
+            Se connecter
+          }
+        </button>
+      </div>
+    </form>
+    <!-- Informations de test -->
+  <div class="mt-8 text-center">
+    <div class="">
+      <p class="text-sm font-semibold text-blue-800 mb-2">🔐 Comptes de test disponibles :</p>
+      <div class="text-xs text-blue-700 space-y-1">
+        <p><strong>Utilisateur :</strong> user@test.com / user123</p>
+        <p><strong>VIP :</strong> vip@test.com / vip123</p>
+        <p><strong>Modérateur :</strong> moderator@ecommerce.com / moderator123</p>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
