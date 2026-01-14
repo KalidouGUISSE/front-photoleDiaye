@@ -1,9 +1,10 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit, signal, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AnnonceService } from '../../core/services/annonce.service';
 import type { Annonce } from '../../core/models/annonce.model';
 import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,33 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
 })
 export class HomeComponent implements OnInit {
   private annonceService = inject(AnnonceService);
-  
+  private platformId = inject(PLATFORM_ID);
+  private annonce1Sub?: Subscription;
+
   annonces = signal<Annonce[]>([]);
+  annonce1 = signal<Annonce | null>(null);
   loading = signal(true);
   error = signal<string | null>(null);
 
+  loadAnnonce1(): void {
+    this.annonce1Sub = this.annonceService
+      .getAnnonce10minute()
+      .subscribe({
+        next: (annonce: Annonce) => {
+          this.annonce1.set(annonce);
+        },
+        error: () => {
+          console.error('Erreur chargement annonce 1');
+        }
+      });
+    console.log('back');
+  }
+
   ngOnInit(): void {
     this.loadAnnonces();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadAnnonce1();
+    }
   }
 
   loadAnnonces(): void {
@@ -49,4 +70,8 @@ export class HomeComponent implements OnInit {
       currency: 'EUR'
     }).format(price);
   }
+
+    ngOnDestroy(): void {
+      this.annonce1Sub?.unsubscribe();
+    }
 }
