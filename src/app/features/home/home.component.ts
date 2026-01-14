@@ -39,9 +39,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAnnonces();
-    if (isPlatformBrowser(this.platformId)) {
-      this.loadAnnonce1();
-    }
+    // if (isPlatformBrowser(this.platformId)) {
+    //   this.loadAnnonce1();
+    // }
   }
 
   loadAnnonces(): void {
