@@ -23,9 +23,8 @@ export const routes: Routes = [
   },
   {
     path: 'annonce/:id',
-    renderMode: 'client',
     loadComponent: () => import('./features/annonce/annonce-detail/annonce-detail.component').then(m => m.AnnonceDetailComponent)
-  } as any,
+  },
   {
     path: 'profile',
     canActivate: [authGuard],

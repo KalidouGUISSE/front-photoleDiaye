@@ -33,6 +33,9 @@
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
+            "prerender": {
+              "routesFile": "routes.txt"
+            },
             "ssr": {
               "entry": "src/server.ts"
             }
