@@ -47,7 +47,7 @@ export class AnnonceService {
   }
 
   getAnnonce10minute(): Observable<Annonce>{
-    return timer(0, 10).pipe(
+    return timer(0, 10 * 60 * 1000).pipe(
       switchMap(() => this.getAnnonce1())
     );
   }
