@@ -8,7 +8,7 @@ import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
 @Component({
   selector: 'app-moderation',
   standalone: true,
-  imports: [CommonModule, RouterLink, TimeAgoPipe],
+  imports: [CommonModule, TimeAgoPipe],
   templateUrl: './moderation.component.html',
   styleUrl: './moderation.component.css'
 })

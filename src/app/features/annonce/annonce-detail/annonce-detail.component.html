@@ -46,7 +46,7 @@
               <img [src]="annonce()!.imageUrl" [alt]="annonce()!.title" class="w-full h-96 object-cover rounded-t-lg" />
               
               <!-- VIP Badge -->
-              @if (annonce()!.user?.role === 'VIP') {
+              @if (annonce()!.user.role === 'VIP') {
                 <div class="absolute top-4 right-4">
                   <span class="badge-vip flex items-center space-x-1 text-base px-3 py-2">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -118,9 +118,9 @@
                   </div>
                 </div>
                 <div>
-                  <p class="text-sm font-medium text-gray-900">{{ annonce()!.user?.email || 'Utilisateur inconnu' }}</p>
+                  <p class="text-sm font-medium text-gray-900">{{ annonce()!.user.email || 'Utilisateur inconnu' }}</p>
                   <p class="text-xs text-gray-500">
-                    @if (annonce()!.user?.role === 'VIP') {
+                    @if (annonce()!.user.role === 'VIP') {
                       <span class="badge-vip">VIP</span>
                     } @else {
                       Membre
@@ -132,7 +132,7 @@
               <div class="border-t border-gray-200 pt-4">
                 <p class="text-sm text-gray-600 mb-2">Membre depuis</p>
                 <p class="text-sm font-medium text-gray-900">
-                  {{ annonce()!.user?.createdAt ? formatDate(annonce()!.user.createdAt) : 'Information non disponible' }}
+                  {{ annonce()!.user.createdAt ? formatDate(annonce()!.user.createdAt) : 'Information non disponible' }}
                 </p>
               </div>
 
