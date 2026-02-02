@@ -346,7 +346,7 @@ Ce projet est sous licence MIT.
 ## 📞 Contact
 
 - **Développeur** : Kalidou Guissé
-- **Email** : kalidou.guisse@example.com
+- **Email** : guissedev@gmail.com
 
 ---
 
