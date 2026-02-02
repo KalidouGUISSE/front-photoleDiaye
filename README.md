@@ -1,172 +1,357 @@
-# 🛍️ E-Commerce Frontend - Application Mobile
+# SamaOMPay - Plateforme de Petites Annonces
 
-Application frontend moderne développée avec Angular 18+ et Tailwind CSS pour une plateforme de vente en ligne avec capture photo obligatoire.
+[![Angular](https://img.shields.io/badge/Angular-20.3.0-red?style=for-the-badge&logo=angular)](https://angular.io/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
+[![Laravel](https://img.shields.io/badge/Laravel-API-orange?style=for-the-badge&logo=laravel)](https://laravel.com/)
 
-## 🚀 Fonctionnalités
+## 📋 Description du Projet
 
-### Pour tous les utilisateurs
-- ✅ **Authentification** : Inscription et connexion sécurisées
-- 📱 **Navigation responsive** : Interface adaptée mobile, tablette et desktop
-- 🏠 **Liste des annonces** : Affichage des produits avec tri VIP prioritaire
-- 👁️ **Détail d'annonce** : Vue complète avec informations vendeur
-- 🔔 **Notifications** : Alertes d'expiration et de modération
+**PhotolDiaye** est une plateforme moderne de petites annonces développée en Angular 20 (frontend) et Laravel (backend API REST). L'application permet aux utilisateurs de créer, consulter et gérer des annonces avec un système de modération intégré.
 
-### Pour les utilisateurs (USER/VIP)
-- 📸 **Création d'annonce** : Capture photo obligatoire via caméra
-- 📋 **Mes annonces** : Gestion de ses propres annonces
-- ⭐ **Statut VIP** : Visibilité prioritaire des annonces
+Ce dépôt contient le **frontend Angular** de l'application. Le backend Laravel est disponible dans un dépôt séparé.
 
-### Pour les modérateurs
-- 🛡️ **Modération** : Approbation ou rejet des annonces
-- 📊 **Dashboard** : Vue d'ensemble des annonces en attente
+### 🎯 Objectifs du Projet
 
-## 🛠️ Technologies
+- Fournir une expérience utilisateur fluide et intuitive sur mobile et desktop
+- Garantir la qualité des annonces grâce à un système de modération
+- Assurer la sécurité des données utilisateurs avec une authentification robuste
+- Optimiser les performances avec une architecture lazy loading
 
-- **Framework** : Angular 18+ (Standalone Components)
-- **Styling** : Tailwind CSS 4
-- **State Management** : RxJS + Signals
-- **HTTP Client** : Angular HttpClient avec intercepteurs
-- **Routing** : Angular Router avec guards
-- **Icons** : SVG inline
+---
 
-## 📦 Installation
+## 🛠️ Stack Technique
+
+### Frontend
+
+| Technologie | Version | Description |
+|-------------|---------|-------------|
+| **Angular** | 20.3.0 | Framework SPA moderne avec Signals |
+| **TypeScript** | 5.9.2 | Typage statique sécurisé |
+| **RxJS** | 7.8.0 | Programmation réactive |
+| **TailwindCSS** | 3.4.18 | Framework CSS utilitaire |
+| **Angular SSR** | 20.3.5 | Server-Side Rendering |
+
+### Outils de Développement
+
+- **Angular CLI** - Gestionnaire de projet
+- **Karma/Jasmine** - Tests unitaires
+- **Prettier** - Formatage de code
+- **ESLint** - Analyse statique du code
+
+---
+
+## ✨ Fonctionnalités Principales
+
+### 🔐 Authentification & Sécurité
+
+- **JWT (JSON Web Token)** avec access token et refresh token
+- **Gestion des rôles** : USER, VIP, MODERATOR
+- **Protection des routes** via guards Angular
+- **Intercepteurs HTTP** pour l'injection automatique du token
+- **Validation des tokens** avec vérification d'expiration
+
+### 📝 Gestion des Annonces
+
+- **Création d'annonces** avec formulaire réactif
+- **Validation des données** côté client
+- **Capture de photos** via caméra (mobile)
+- **Upload d'images** en base64
+- **Liste des annonces** paginée
+- **Détail d'une annonce** avec compteur de vues
+
+### 👤 Espace Utilisateur
+
+- **Profil utilisateur** avec historique
+- **Gestion de mes annonces**
+- **Notifications** en temps réel
+- **Tableau de bord** personnalisé
+
+### 🛡️ Système de Modération
+
+- **Interface d'administration** dédiée
+- **Approbation/Rejet** des annonces
+- **Filtrage** par statut (en attente, validé, rejeté)
+- **Contrôle d'accès** basé sur les rôles
+
+---
+
+## 🏗️ Architecture du Projet
+
+```
+src/
+├── app/
+│   ├── core/                    # Services, guards, models partagés
+│   │   ├── guards/              # Protection des routes
+│   │   │   ├── auth.guard.ts    # Vérification authentification
+│   │   │   ├── user.guard.ts    # Accès utilisateur standard
+│   │   │   └── moderator.guard.ts # Accès modérateur
+│   │   ├── interceptors/        # Intercepteurs HTTP
+│   │   │   └── auth.interceptor.ts
+│   │   ├── models/              # Interfaces TypeScript
+│   │   │   ├── annonce.model.ts
+│   │   │   ├── user.model.ts
+│   │   │   └── notification.model.ts
+│   │   └── services/            # Services métier
+│   │       ├── auth.service.ts
+│   │       ├── annonce.service.ts
+│   │       ├── camera.service.ts
+│   │       └── notification.service.ts
+│   ├── features/                # Modules fonctionnels (lazy loading)
+│   │   ├── auth/                # Authentification
+│   │   │   ├── login/
+│   │   │   └── register/
+│   │   ├── annonce/             # Gestion des annonces
+│   │   │   ├── annonce-create/
+│   │   │   └── annonce-detail/
+│   │   ├── home/                # Page d'accueil
+│   │   ├── profile/             # Profil utilisateur
+│   │   ├── moderation/          # Interface admin
+│   │   └── notifications/       # Centre de notifications
+│   └── shared/                  # Composants réutilisables
+│       └── components/
+│           └── navbar/
+├── environments/                # Configuration par environnement
+└── styles.css                   # Styles globaux
+```
+
+### Design Patterns Utilisés
+
+- **Dependency Injection** - Injection de services Angular
+- **Signals** - Gestion d'état réactive (Angular 20)
+- **Observable Pattern** - Flux de données asynchrones
+- **Repository Pattern** - Abstraction des appels API
+- **Factory Pattern** - Création d'objets complexes
+
+---
+
+## 🔒 Modèle de Données
+
+### User (Utilisateur)
+
+```typescript
+interface User {
+  id: string;
+  email: string;
+  role: 'USER' | 'VIP' | 'MODERATOR';
+  createdAt: string;
+  updatedAt?: string;
+}
+```
+
+### Annonce (Petite Annonce)
+
+```typescript
+interface Annonce {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  price: number;
+  views: number;
+  isActive: boolean;
+  isModerated: boolean;
+  expiresAt: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  user: User;
+}
+```
+
+---
+
+## 📡 API Endpoints (Backend Laravel)
+
+### Authentication
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/api/auth/register` | Inscription |
+| POST | `/api/auth/login` | Connexion |
+| POST | `/api/auth/logout` | Déconnexion |
+| POST | `/api/auth/refresh` | Rafraîchir le token |
+
+### Annonces
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/api/annonces` | Liste des annonces |
+| POST | `/api/annonces` | Créer une annonce |
+| GET | `/api/annonces/:id` | Détail d'une annonce |
+| PUT | `/api/annonces/:id` | Modifier une annonce |
+| DELETE | `/api/annonces/:id` | Supprimer une annonce |
+
+### Modération
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/api/moderation/annonces` | Annonces en attente |
+| POST | `/api/moderation/annonces/:id/action` | Approuver/Rejeter |
+
+### Utilisateur
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/api/user/profile` | Profil utilisateur |
+| GET | `/api/user/annonces` | Annonces de l'utilisateur |
+
+---
+
+## 🚀 Installation & Démarrage
+
+### Prérequis
+
+- Node.js 18+ 
+- npm 10+ ou yarn
+- Angular CLI 20
+
+### Installation
 
 ```bash
-cd front
+# Cloner le projet
+git clone https://github.com/KalidouGUISSE/front-photoleDiaye
+
+# Installer les dépendances
 npm install
+
+# Configurer les variables d'environnement
+cp .env.example .env
+# Éditer .env avec vos valeurs
 ```
 
-## 🚀 Development server
-
-To start a local development server, run:
+### Démarrage
 
 ```bash
-ng serve
+# Mode développement
+npm start
+
+# Mode production
+npm run build
+
+# Serveur de production
+npm run serve:ssr:front
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Variables d'Environnement
 
-## Building
+```env
+API_URL=http://localhost:8000/api
+```
 
-To build the project run:
+---
+
+## 📱 Aperçu de l'Application
+
+### Tableau de Bord
+
+![Dashboard](screenshots/dashboard.png)
+
+### Création d'une Annonce (Mobile)
+
+![Créer une annonce](screenshots/creer-une-annoces-mobile.png)
+
+### Visualisation d'une Annonce
+
+![Voir une annonce](screenshots/voir-une-annonce.png)
+
+### Interface Mobile
+
+![Dashboard Mobile](screenshots/dashboard-mobile.png)
+
+---
+
+## 🔐 Sécurité
+
+### Mesures Implémentées
+
+1. **Authentification JWT**
+   - Access token avec expiration courte
+   - Refresh token pour renouveler les sessions
+   - Stockage sécurisé dans localStorage
+
+2. **Protection des Routes**
+   - Guards Angular pour chaque niveau d'accès
+   - Vérification serveur des permissions
+
+3. **Validation des Données**
+   - Formulaires réactifs avec validateurs
+   - Sanitization des entrées utilisateur
+
+4. **Intercepteurs HTTP**
+   - Injection automatique du token dans les requêtes
+   - Gestion des erreurs centralisée
+
+---
+
+## 📊 Performance
+
+### Optimisations
+
+- **Lazy Loading** - Chargement différé des modules
+- **Server-Side Rendering (SSR)** - Amélioration SEO et First Contentful Paint
+- **Tree Shaking** - Élimination du code mort
+- **Bundle Optimization** - Code splitting automatique
+
+### Métriques Cibles
+
+| Métrique | Cible |
+|----------|-------|
+| First Contentful Paint | < 1s |
+| Time to Interactive | < 2s |
+| Bundle Size Initial | < 500kB |
+| Lighthouse Score | > 90 |
+
+---
+
+## 🧪 Tests
 
 ```bash
-ng build
+# Tests unitaires
+npm run test
+
+# Tests avec couverture
+npm run test -- --code-coverage
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## 📁 Structure du projet
+## 📚 Documentation Complémentaire
 
-```
-front/
-├── src/
-│   ├── app/
-│   │   ├── core/                    # Services, guards, interceptors
-│   │   │   ├── guards/              # Route guards (auth, moderator, user)
-│   │   │   ├── interceptors/        # HTTP interceptors (auth)
-│   │   │   ├── models/              # Interfaces TypeScript
-│   │   │   └── services/            # Services (auth, annonce, notification)
-│   │   ├── features/                # Composants de fonctionnalités
-│   │   │   ├── auth/                # Login, Register
-│   │   │   ├── home/                # Liste des annonces
-│   │   │   ├── annonce/             # Détail, Création
-│   │   │   ├── profile/             # Profil utilisateur
-│   │   │   ├── notifications/       # Notifications
-│   │   │   └── moderation/          # Modération (moderators only)
-│   │   ├── shared/                  # Composants partagés
-│   │   │   ├── components/          # Navbar, etc.
-│   │   │   └── pipes/               # Pipes (timeAgo)
-│   │   ├── app.routes.ts            # Configuration des routes
-│   │   └── app.config.ts            # Configuration de l'application
-│   ├── environments/                # Variables d'environnement
-│   └── styles.css                   # Styles globaux + Tailwind
-├── tailwind.config.js               # Configuration Tailwind
-└── package.json
-```
+- [Guide d'installation](SETUP.md)
+- [Architecture détaillée](ARCHITECTURE.md)
+- [Guide de démarrage rapide](QUICK_START.md)
 
-## 🎨 Design System
+---
 
-### Couleurs
-- **Primary** : Bleu moderne (#2563eb)
-- **Secondary** : Vert succès (#10b981)
-- **VIP** : Or (#f59e0b)
-- **Danger** : Rouge (#ef4444)
+## 👥 Contribution
 
-### Composants réutilisables
-- Cards
-- Buttons (primary, secondary, danger)
-- Input fields
-- Badges (VIP, status)
-- Loading spinners
+Les contributions sont les bienvenues ! Veuillez lire le guide de contribution avant de soumettre une pull request.
 
-## 🔐 Authentification
+### Standards de Code
 
-L'application utilise JWT Bearer Token pour l'authentification :
-- **Access Token** : Stocké dans localStorage
-- **Refresh Token** : Utilisé pour renouveler l'access token
-- **Intercepteur HTTP** : Ajoute automatiquement le token aux requêtes
-- **Guards** : Protègent les routes selon le rôle utilisateur
+- TypeScript strict activé
+- Prettier pour le formatage
+- Conventional Commits
+- Tests unitaires requis
 
-## 📱 Fonctionnalités spécifiques
+---
 
-### Capture photo obligatoire
-- Utilise l'API native de capture photo du navigateur
-- Compression automatique des images
-- Conversion en base64 pour l'envoi au backend
-- Pas d'import de fichiers (garantie de transparence)
+## 📄 Licence
 
-### Système VIP
-- Badge doré visible sur les annonces
-- Tri prioritaire dans la liste
-- Visibilité accrue
+Ce projet est sous licence MIT.
 
-### Notifications
-- Alertes d'expiration (2 jours avant)
-- Notifications de modération (approuvée/rejetée)
-- Badge avec compteur de non-lues
-- Marquage comme lu
+---
 
-### Expiration automatique
-- Les annonces expirent après 7 jours
-- Notification envoyée 2 jours avant expiration
-- Suppression automatique après expiration
+## 📞 Contact
 
-## 📊 Routes de l'application
+- **Développeur** : Kalidou Guissé
+- **Email** : kalidou.guisse@example.com
 
-| Route | Accès | Description |
-|-------|-------|-------------|
-| `/` | Public | Liste des annonces |
-| `/login` | Public | Connexion |
-| `/register` | Public | Inscription |
-| `/annonce/:id` | Public | Détail d'une annonce |
-| `/annonce/create` | USER/VIP | Créer une annonce |
-| `/profile` | Authentifié | Profil utilisateur |
-| `/profile/annonces` | Authentifié | Mes annonces |
-| `/notifications` | Authentifié | Notifications |
-| `/moderation` | MODERATOR | Modération |
+---
 
-## 🌐 API Backend
+<div align="center">
 
-L'application communique avec le backend sur `http://localhost:3000`
+**Développé avec ❤️ et Angular**
 
-Endpoints principaux :
-- `POST /auth/register` - Inscription
-- `POST /auth/login` - Connexion
-- `GET /annonce/list` - Liste des annonces
-- `POST /annonce/create` - Créer une annonce
-- `GET /notification` - Notifications
-- `GET /annonce/pending` - Annonces en attente (moderator)
-- `PATCH /annonce/moderate/:id` - Modérer une annonce (moderator)
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+</div>
