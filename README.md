@@ -337,9 +337,9 @@ Les contributions sont les bienvenues ! Veuillez lire le guide de contribution a
 
 ---
 
-## 📄 Licence
+<!-- ## 📄 Licence
 
-Ce projet est sous licence MIT.
+Ce projet est sous licence MIT. -->
 
 ---
 
